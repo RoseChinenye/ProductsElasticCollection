@@ -1,6 +1,5 @@
-﻿using System.Dynamic;
-
-namespace ProductsElasticCollection
+﻿
+namespace ProductsElasticCollection.implementation
 {
     class Product
     {
@@ -11,5 +10,5 @@ namespace ProductsElasticCollection
         public string Category { get; set; }
         public int OrderCount { get; set; }
     }
-    
+
 }

@@ -1,10 +1,12 @@
-﻿using System.Dynamic;
+﻿using ProductsElasticCollection.Data;
+using ProductsElasticCollection.@interface;
+using System.Dynamic;
 
-namespace ProductsElasticCollection
+namespace ProductsElasticCollection.implementation
 {
-    internal class DisplayProducts
+    internal class DisplayProducts : IProducts
     {
-        public void ListProducts(string[] properties = null)
+        public void ListProducts(string[] properties)
         {
             DataStore data = new DataStore();
 
@@ -54,8 +56,8 @@ namespace ProductsElasticCollection
                         default:
                             Console.Clear();
 
-                            Console.WriteLine("\n Properties doesn't exist, please enter property!");
-                            UserInputMethod();
+                            Console.WriteLine("\n Properties doesn't exist, please enter property to display separated by comas (,)!");
+                            GetUserInput();
                             break;
                     }
                 }
@@ -64,7 +66,7 @@ namespace ProductsElasticCollection
             }
         }
 
-        public string UserInputMethod()
+        public void showProducts()
         {
             DataStore data = new DataStore();
 
@@ -72,12 +74,18 @@ namespace ProductsElasticCollection
             {
                 Console.WriteLine($" ID: {p.Id},\t Name: {p.Name},\t Quantity: {p.Quantity},\t Price: ${p.Price},\t Category: {p.Category},\t OrderCount: {p.OrderCount}\t");
             }
+        }
 
-            Console.Write("\n Specify what property to display  \n\n  ");
-            
+        public string GetUserInput()
+        {
+            showProducts();
+
+            Console.Write("\n Specify what property to display. If property is more than one, separate them with comas(,)  \n\n  ");
+
             string input = Console.ReadLine().ToLower().Replace(" ", "");
-
+            
             return input;
+            
         }
     }
 }
