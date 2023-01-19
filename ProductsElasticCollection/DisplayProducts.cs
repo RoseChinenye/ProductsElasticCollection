@@ -4,23 +4,12 @@ namespace ProductsElasticCollection
 {
     internal class DisplayProducts
     {
-        public DisplayProducts()
-        {
-
-        }
-
-        private List<Product> products = new List<Product>();
-       
-        public void AddProduct(Product product)
-        {
-            products.Add(product);
-        }
-
         public void ListProducts(string[] properties = null)
         {
+            DataStore data = new DataStore();
 
-            Console.WriteLine("\n------------Product list------------\n");
-            foreach (Product p in products)
+            Console.WriteLine($"\n------------Product list based on the property specified------------\n");
+            foreach (Product p in data.products)
             {
                 dynamic productProperty = new ExpandoObject();
 
@@ -37,38 +26,35 @@ namespace ProductsElasticCollection
                 {
                     switch (property)
                     {
-                        case "" and "" and "" and "" and "" and "":
-                            Console.WriteLine($"  {productProperty.Id}, {productProperty.Name}, {productProperty.Quantity}, {productProperty.Price}, {productProperty.Category}, {productProperty.OrderCount}");
-                            break;
 
-                        case "Id":
+                        case "id":
                             Console.Write($"  {productProperty.Id},");
                             break;
 
-                        case "Name":
+                        case "name":
                             Console.Write($"  {productProperty.Name},");
                             break;
 
-                        case "Quantity":
+                        case "quantity":
                             Console.Write($"  {productProperty.Quantity},");
                             break;
 
-                        case "Price":
+                        case "price":
                             Console.Write($"  ${productProperty.Price},");
                             break;
 
-                        case "Category":
+                        case "category":
                             Console.Write($"  {productProperty.Category},");
                             break;
 
-                        case "OrderCount":
+                        case "ordercount":
                             Console.Write($"  {productProperty.OrderCount},");
                             break;
 
                         default:
                             Console.Clear();
 
-                            Console.WriteLine("\n  Invalid Properties entered,try again!");
+                            Console.WriteLine("\n Properties doesn't exist, please enter property!");
                             UserInputMethod();
                             break;
                     }
@@ -80,10 +66,16 @@ namespace ProductsElasticCollection
 
         public string UserInputMethod()
         {
-            
-            Console.Write("\n  Enter properties to display (Use comma to seperate if many properties): \n\n  ");
+            DataStore data = new DataStore();
 
-            string input = Console.ReadLine().Replace(" ", "");
+            foreach (Product p in data.products)
+            {
+                Console.WriteLine($" ID: {p.Id},\t Name: {p.Name},\t Quantity: {p.Quantity},\t Price: ${p.Price},\t Category: {p.Category},\t OrderCount: {p.OrderCount}\t");
+            }
+
+            Console.Write("\n Specify what property to display  \n\n  ");
+            
+            string input = Console.ReadLine().ToLower().Replace(" ", "");
 
             return input;
         }
